@@ -22,16 +22,37 @@ All model calls run via `claude -p` (subscription-absorbed), not the API.
 
 ## Setup
 
+### Easiest — let Claude set it up
+
+If you use [Claude Code](https://claude.com/claude-code) (terminal or app), paste this and Claude will install everything and show you how to use it:
+
+```text
+Set up "Tarjumah" on my computer, then tell me how to use it in plain language.
+It's an open-source tool that translates classical Arabic books (PDFs) into clean
+English PDFs, and it runs on my own Claude.
+
+1. Clone https://github.com/zain-zubair/tarjumah into a sensible folder.
+2. Run its ./setup.sh script. Install anything missing (Python 3.10+, Homebrew,
+   Typst) and explain what you're doing as you go.
+3. Confirm the `claude` CLI is installed and I'm signed in — this tool uses my own
+   Claude, no API key needed.
+4. Then give me one copy-pasteable example command to translate a PDF, and tell me
+   where the finished file will appear.
+
+I'm not very technical, so keep it simple and tell me exactly what to type.
+```
+
+### Manual
+
 ```bash
 git clone https://github.com/zain-zubair/tarjumah.git
 cd tarjumah
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-brew install typst   # or: cargo install typst-cli
+./setup.sh
 ```
 
-You also need the `claude` CLI on PATH and authenticated (subscription auth — OAuth or keychain). Verify:
+`setup.sh` creates a virtualenv, installs the Python dependencies, and installs Typst (the PDF renderer). It's safe to re-run.
+
+Tarjumah runs on **your own** Claude — there's no API key. Install the `claude` CLI ([Claude Code](https://claude.com/claude-code)), sign in, and verify:
 
 ```bash
 claude -p --model claude-haiku-4-5 "say ok"
