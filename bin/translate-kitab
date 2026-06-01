@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+mkdir -p outputs/translations data
+[ -f .venv/bin/activate ] && source .venv/bin/activate
+exec python -m tarjumah.cli "$@"
