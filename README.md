@@ -20,45 +20,64 @@ Tarjumah is a five-stage pipeline that holds the entire book in mind at once: it
 
 All model calls run via `claude -p` (subscription-absorbed), not the API.
 
-## Setup
+## Get started — no terminal needed
 
-### Easiest — let Claude set it up
+Tarjumah is run *by* Claude. You don't type commands — you talk to Claude and it does the work for you.
 
-If you use [Claude Code](https://claude.com/claude-code) (terminal or app), paste this and Claude will install everything and show you how to use it:
+**Step 1 — Get Claude Code.** The one thing you install yourself; it works on macOS, Windows, and Linux → https://claude.com/claude-code
+
+**Step 2 — Paste this to Claude.** It tells you what it needs, installs only what's missing (after you say yes), then translates books for you:
 
 ```text
-Set up "Tarjumah" on my computer, then tell me how to use it in plain language.
-It's an open-source tool that translates classical Arabic books (PDFs) into clean
-English PDFs, and it runs on my own Claude.
+I'd like to use "Tarjumah" — an open-source tool that translates classical Arabic
+books (PDFs) into clean English PDFs. It runs on you (my own Claude), so there's no
+API key and no cost beyond my Claude plan.
 
-1. Clone https://github.com/zain-zubair/tarjumah into a sensible folder.
-2. Run its ./setup.sh script. Install anything missing (Python 3.10+, Homebrew,
-   Typst) and explain what you're doing as you go.
-3. Confirm the `claude` CLI is installed and I'm signed in — this tool uses my own
-   Claude, no API key needed.
-4. Then give me one copy-pasteable example command to translate a PDF, and tell me
-   where the finished file will appear.
+Please set it up and run it FOR me — I don't want to use the terminal myself:
 
-I'm not very technical, so keep it simple and tell me exactly what to type.
+1. First, before installing anything, tell me in plain words what Tarjumah needs on
+   my computer and what you'll install, then wait for me to say yes.
+2. Detect my operating system and install the right way for it.
+3. Clone https://github.com/zain-zubair/tarjumah, then open its CLAUDE.md and follow
+   those instructions exactly.
+4. When it's ready, just ask me for a PDF and translate it for me — you run every
+   command; I'll only hand you files and say yes or no.
+
+Keep everything simple and do the work yourself.
 ```
 
-### Manual
+Claude handles the rest: it clones Tarjumah, checks what's already on your computer, installs only the missing pieces (with your OK), and then waits for you to hand it a PDF.
+
+## Using it — just ask
+
+Once it's set up you never touch the terminal. Tell Claude things like:
+
+- *"Translate this book for me."* — then give it the PDF.
+- *"Make the translation more polished."* — it raises the coherence pass.
+- *"Continue the one that got interrupted."* — it resumes where it stopped.
+
+When it finishes, Claude tells you where your English PDF is — by default `outputs/translations/<name>/06-final.pdf`, plus anywhere you asked it to save a copy.
+
+## Getting updates
+
+Tarjumah improves over time. To get the latest, just tell Claude:
+
+> *"Update Tarjumah to the latest version."*
+
+It pulls the newest code and re-runs setup (safe to repeat), so you stay current with one sentence.
+
+## Advanced — run it yourself
+
+Prefer the terminal? Set up manually:
 
 ```bash
 git clone https://github.com/zain-zubair/tarjumah.git
 cd tarjumah
-./setup.sh
+./setup.sh                                     # venv + dependencies + Typst (safe to re-run)
+claude -p --model claude-haiku-4-5 "say ok"    # confirm your own Claude is signed in
 ```
 
-`setup.sh` creates a virtualenv, installs the Python dependencies, and installs Typst (the PDF renderer). It's safe to re-run.
-
-Tarjumah runs on **your own** Claude — there's no API key. Install the `claude` CLI ([Claude Code](https://claude.com/claude-code)), sign in, and verify:
-
-```bash
-claude -p --model claude-haiku-4-5 "say ok"
-```
-
-## Usage
+Then translate a book directly:
 
 ```bash
 bin/translate-kitab path/to/kitab.pdf path/to/output.pdf --slug my-book
